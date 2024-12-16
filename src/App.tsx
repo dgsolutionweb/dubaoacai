@@ -174,8 +174,8 @@ END:VCARD`;
     if (navigator.share) {
       try {
         await navigator.share(shareData);
-      } catch (error) {
-        if (error.name !== 'AbortError') {
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name !== 'AbortError') {
           console.error('Erro ao compartilhar:', error);
           navigator.clipboard.writeText(shareData.text + '\n' + shareData.url);
           alert('Link e mensagem copiados para a área de transferência!');
@@ -222,8 +222,7 @@ END:VCARD`;
               />
             </Box>
 
-            <MotionBox
-              component="img"
+            <motion.img
               src={acaiLogo}
               alt="DuBom Açaí Logo"
               initial={{ scale: 0, rotate: -180 }}
@@ -234,14 +233,14 @@ END:VCARD`;
                 damping: 20,
                 duration: 0.8
               }}
-              sx={{
+              style={{
                 width: 150,
                 height: 150,
                 margin: '0 auto',
                 display: 'block',
                 borderRadius: '50%',
-                border: 4,
-                borderColor: 'secondary.main',
+                border: '4px solid',
+                borderColor: theme.palette.secondary.main,
                 boxShadow: '0 0 20px rgba(255, 20, 147, 0.3)',
               }}
             />
